@@ -1,0 +1,41 @@
+<scene version="2.2.1">
+    <integrator type="path"/>
+
+    <sensor type="perspective">
+        <transform name="to_world">
+            <lookat origin="0, 0, -200"
+                    target="0, 0, 0"
+                    up="0, 1, 0"/>
+        </transform>
+
+        <float name="fov" value="72"/>
+
+        <film type="hdrfilm">
+            <string name="pixel_format" value="rgb"/>
+            <integer name="width" value="512"/>
+            <integer name="height" value="512"/>
+        </film>
+
+        <sampler type="independent">
+            <integer name="sample_count" value="256"/>
+        </sampler>
+    </sensor>
+
+    <emitter type="envmap">
+        <string name="filename" value="textures/museum.exr"/>
+    </emitter>
+
+    <shape type="obj" id="my_emitter">
+        <string name="filename" value="meshes/rectangle_normals_uv.obj"/>
+        <emitter type="area">
+            <texture name="radiance" type="bitmap">
+                <string name="filename" value="textures/img_data/imgs_flowers/1.jpg"/>
+            </texture>
+        </emitter> 
+        <transform name="to_world">
+            <rotate x="1" angle="270"/>
+            <scale x="30" y="30"/>
+            <translate value="0, 100, 10"/>
+        </transform>
+    </shape>
+</scene>

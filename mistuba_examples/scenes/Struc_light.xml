@@ -1,0 +1,76 @@
+<?xml version="1.0"?>
+<scene version="2.2.1">
+    <!-- Camera and Rendering Parameters -->
+    <integrator type="path">
+        <integer name="max_depth" value="4" />
+    </integrator>
+    <sensor type="perspective">
+        <string name="fov_axis" value="x" />
+        <float name="fov" value="29.455922" />
+        <float name="near_clip" value="0.0100" />
+        <float name="far_clip" value="1000.000000" />
+        <transform name="to_world">
+            <rotate x="1" angle="0" />
+            <rotate y="1" angle="0" />
+            <rotate z="1" angle="0" />
+            <translate x="0" y="0" z="-6" />
+        </transform>
+        <sampler type="ldsampler">
+            <integer name="sample_count" value="1" />
+        </sampler>
+        <film type="hdrfilm">
+            <integer name="width" value="1024" />
+            <integer name="height" value="1024" />
+            <rfilter type="gaussian" />
+        </film>
+    </sensor>
+    <!-- Materials -->
+    <bsdf type="diffuse" id="mat_image">
+        <rgb value="1.000000 1.000000 1.00000" name="reflectance" />
+    </bsdf>
+    <bsdf type="diffuse" id="mat-Material.003">
+        <rgb value="1.000000 0.000000 0.300000" name="reflectance" />
+    </bsdf>
+    
+    <bsdf type="blendbsdf" id="blend_mat">
+        <float name="weight" value="1"/>
+        <bsdf type="conductor" id="bsdf0" />
+        <bsdf type="diffuse" id="bsdf1" />
+    </bsdf>
+    
+    <!-- Emitters -->
+    <bsdf type="conductor" id="mirror" />
+    <!-- Shapes -->
+  
+    <emitter id="projector" type="projector">
+        <transform name="to_world">
+            <translate x="0" y="0" z="-6" />
+            <rotate x="1" angle="0" />
+            <rotate y="1" angle="15" />
+            <rotate z="1" angle="0" />
+        </transform>
+		<float name="fov" value="29.455922"/>
+		<texture name="irradiance" type="bitmap">      
+			<string name="filename" value="./textures/sample_pattern.png"/>
+		</texture>
+        <float name="scale" value="60" />
+    </emitter>
+    
+
+    <shape type="obj" id = "object">
+        <string name="filename" value="./meshes/bunny.obj" />
+        <transform name="to_world">
+            <matrix value="2 0 0 0 0 2 0 0 0 0 2 0 0 0 0 1"/>
+            <rotate x="1" angle="0" />
+            <rotate y="1" angle="0" />
+        </transform>
+        <ref id="blend_mat" name="bsdf" />
+    </shape>  
+    
+    
+        
+    <emitter type="envmap">
+        <string name="filename" value="textures/museum.exr"/>
+    </emitter>
+    
+</scene>
